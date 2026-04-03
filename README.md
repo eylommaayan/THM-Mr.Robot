@@ -41,7 +41,18 @@ Port 443 (HTTPS): פתוח (שרת Apache עם תמיכת SSL).
 
 
 
+2.3 השגת הדגל הראשון (Key 1 of 3)
+לאחר שזיהיתי את הנתיב בקובץ ה-robots.txt, ניגשתי ישירות לקובץ הטקסט בדפדפן.
 
+כתובת המקור:
+http://10.114.168.48/key-1-of-3.txt
+
+התוצאה:
+הקובץ הכיל את המחרוזת הבאה (הדגל הראשון):
+073403c9325489496e282b130f14652c
+<img width="895" height="298" alt="image" src="https://github.com/user-attachments/assets/ef9bb2ba-e2f8-494f-8dc7-c426adef736d" />
+
+<img width="1505" height="582" alt="image" src="https://github.com/user-attachments/assets/79e89750-9568-4173-b60f-ae6bf0b6199e" />
 
 
 
