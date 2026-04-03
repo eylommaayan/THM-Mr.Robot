@@ -76,10 +76,24 @@ http://10.114.168.48/key-1-of-3.txt
 
 <img width="599" height="498" alt="image" src="https://github.com/user-attachments/assets/a5a27ab8-044c-449c-9e2f-0e11cf51bca0" />
 
+שלב 4: אופטימיזציה של רשימת המילים (Deduplication)
+קובץ המילון שנמצא (fsocity.dic) הכיל כמות מאסיבית של מילים כפולות שהיו מעכבות את ניסיון הפריצה. ביצעתי תהליך סינון כדי להשאיר רק מילים ייחודיות.
+
+הפקודות לביצוע:
+
+Bash
+sort fsocity.dic | uniq > fs-list.txt
+אימות התוצאה:
+באמצעות הפקודה wc -w, וידאתי שרשימת המילים צומצמה למספר יעיל של מילים ייחודיות.
+
+Bash
+wc -w fs-list.txt
+# Output: 11451
 
 
 
-שלב 4: סריקת ספריות (Directory Brute-Forcing)
+
+שלב 5: סריקת ספריות (Directory Brute-Forcing)
 כדי לחשוף נתיבים חבויים בשרת האינטרנט, השתמשתי בכלי gobuster. הסריקה נועדה למצוא דפי ניהול או ממשקי התחברות.
 
 פקודה:
@@ -94,6 +108,10 @@ gobuster dir -u http://10.114.174.154/ -w /usr/share/wordlists/dirbuster/directo
 /wp-admin/ (פאנל ניהול)
 
 /license
+
+
+
+
 
 /readme
 <img width="1587" height="834" alt="image" src="https://github.com/user-attachments/assets/c11c7cd5-ce27-46e1-811f-e9d78c3325cc" />
