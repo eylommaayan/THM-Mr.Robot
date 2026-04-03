@@ -70,7 +70,7 @@ http://10.114.168.48/key-1-of-3.txt
 
 <img width="1219" height="899" alt="image" src="https://github.com/user-attachments/assets/5152522f-7880-4ca6-9df0-f05f91b48bbe" />
 
-<img width="1121" height="224" alt="image" src="https://github.com/user-attachments/assets/7491244d-bf7d-4e54-82d6-6e6350db4c42" />
+
 
 
 
@@ -89,7 +89,7 @@ sort fsocity.dic | uniq > fs-list.txt
 Bash
 wc -w fs-list.txt
 # Output: 11451
-
+<img width="1121" height="224" alt="image" src="https://github.com/user-attachments/assets/7491244d-bf7d-4e54-82d6-6e6350db4c42" />
 
 
 
