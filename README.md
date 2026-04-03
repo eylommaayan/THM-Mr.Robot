@@ -52,17 +52,27 @@ http://10.114.168.48/key-1-of-3.txt
 073403c9325489496e282b130f14652c
 <img width="895" height="298" alt="image" src="https://github.com/user-attachments/assets/ef9bb2ba-e2f8-494f-8dc7-c426adef736d" />
 
-<img width="1505" height="582" alt="image" src="https://github.com/user-attachments/assets/79e89750-9568-4173-b60f-ae6bf0b6199e" />
+<img width="1505" height="582" alt="image" src="https://github.com/user-attachments/assets/79e89750-9568-4173-b60f-ae6bf0b6199e"
+  
+  
+  
+  
+  />
 
 
-שלב 3: הורדת מילון המילים (fsocity.dic)
+שלב 3: הורדת מילון המילים(fsocity.dic)
 לאחר שזיהיתי את קובץ המילון ב-robots.txt, ניגשתי אליו כדי להוריד אותו. קובץ זה מכיל רשימת מילים המותאמת אישית לשרת זה, והוא ישמש אותי בשלבים הבאים לביצוע מתקפות Brute Force.
 
 פעולה:
 גישה לכתובת: http://10.114.174.154/fsocity.dic
 
 
+
 <img width="1219" height="899" alt="image" src="https://github.com/user-attachments/assets/5152522f-7880-4ca6-9df0-f05f91b48bbe" />
+
+
+![Uploading image.png…]()
+
 
 
 שלב 4: סריקת ספריות (Directory Brute-Forcing)
