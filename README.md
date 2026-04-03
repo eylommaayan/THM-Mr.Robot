@@ -55,4 +55,33 @@ http://10.114.168.48/key-1-of-3.txt
 <img width="1505" height="582" alt="image" src="https://github.com/user-attachments/assets/79e89750-9568-4173-b60f-ae6bf0b6199e" />
 
 
+שלב 3: הורדת מילון המילים (fsocity.dic)
+לאחר שזיהיתי את קובץ המילון ב-robots.txt, ניגשתי אליו כדי להוריד אותו. קובץ זה מכיל רשימת מילים המותאמת אישית לשרת זה, והוא ישמש אותי בשלבים הבאים לביצוע מתקפות Brute Force.
+
+פעולה:
+גישה לכתובת: http://10.114.174.154/fsocity.dic
+
+
+<img width="1219" height="899" alt="image" src="https://github.com/user-attachments/assets/5152522f-7880-4ca6-9df0-f05f91b48bbe" />
+
+
+שלב 4: סריקת ספריות (Directory Brute-Forcing)
+כדי לחשוף נתיבים חבויים בשרת האינטרנט, השתמשתי בכלי gobuster. הסריקה נועדה למצוא דפי ניהול או ממשקי התחברות.
+
+פקודה:
+
+Bash
+gobuster dir -u http://10.114.174.154/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+ממצאים בולטים:
+הסריקה העלתה מספר נתיבים קריטיים המצביעים על כך שהאתר מריץ WordPress:
+
+/wp-login.php (דף התחברות)
+
+/wp-admin/ (פאנל ניהול)
+
+/license
+
+/readme
+<img width="1587" height="834" alt="image" src="https://github.com/user-attachments/assets/c11c7cd5-ce27-46e1-811f-e9d78c3325cc" />
+
 
