@@ -201,7 +201,8 @@ hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER
 העתקתי את הקוד שנוצר בחלון ה-Preview  כדי להדביק אותו בתוך עורך התבניות -WordPress.
 
 
-<img width="971" height="864" alt="image" src="https://github.com/user-attachments/assets/21b5ed99-9566-4827-b713-2f434b4d17ef" />
+
+<img width="1477" height="801" alt="image" src="https://github.com/user-attachments/assets/1768d7df-83e4-4856-a19b-0a3b59c39636" />
 
 
 
