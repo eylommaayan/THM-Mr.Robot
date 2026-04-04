@@ -184,34 +184,23 @@ hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER
 
 
 
+
+
+
+
 שלב 11: יצירת ה-Payload באמצעות Reverse Shell Generator
 כדי להבטיח שהקוד יפעל בצורה תקינה ויחזור לכתובת הנכונה, השתמשתי באתר revshells.com. כלי זה מאפשר יצירת סקריפטים מוכנים מראש (Payloads) עבור מגוון רחב של שפות תכנות ומערכות הפעלה.
 
 הגדרות שנבחרו (כפי שמוצג בצילום המסך):
 
-IP & Port: הזנתי את כתובת ה-IP של המכונה התוקפת (ה-tun0 שלי) ואת הפורט שעליו אאזין (1234).
 
-Payload Type: בחרתי ב-PHP PentestMonkey. זהו סקריפט אמין מאוד המשמש לפתיחת Reverse Shell על שרתי אינטרנט המריצים PHP.
+<img width="1581" height="896" alt="image" src="https://github.com/user-attachments/assets/9c5408b4-9311-410a-9fa6-a5ee1e0c23c5" />
 
-Listener: הכלי מציג את פקודת ה-Netcat המדויקת שיש להריץ בטרמינל המקומי: nc -lvnp 1234.
 
 ביצוע:
-העתקתי את הקוד שנוצר בחלון ה-Preview (החל מ-<?php ועד סוף הסקריפט) כדי להדביק אותו בתוך עורך התבניות ב-WordPress.
+העתקתי את הקוד שנוצר בחלון ה-Preview  כדי להדביק אותו בתוך עורך התבניות -WordPress.
 
-איך אתה עושה את זה עכשיו?
-כנס לאתר revshells.com.
 
-בשורת ה-IP, שים את ה-IP שלך (מה שקיבלת ב-ifconfig תחת tun0). חשוב: אל תעתיק את ה-IP מהמדריך (192.168.176.12), הוא לא יעבוד אצלך!
-
-בשורת ה-Port, רשום 1234.
-
-בצד שמאל ברשימה, בחר PHP PentestMonkey.
-
-לחץ על כפתור ה-Copy למטה.
-
-חזור ל-WordPress, מחק את כל מה שיש ב-404.php, והדבק את מה שהעתקת.
-
-לחץ על Update File.
 <img width="971" height="864" alt="image" src="https://github.com/user-attachments/assets/21b5ed99-9566-4827-b713-2f434b4d17ef" />
 
 
