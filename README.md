@@ -250,4 +250,52 @@ python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 
 
+<img width="1018" height="454" alt="image" src="https://github.com/user-attachments/assets/37f078db-a506-4fd0-b708-8ff5bb2b2b9d" />
+
+
+
+שלב 16: העלאת הרשאות (Privilege Escalation) והשלמת המכונה
+לאחר השגת גישה ראשונית כמשתמש daemon, המטרה הייתה להעלות הרשאות למשתמש העל (Root) כדי להשיג שליטה מלאה בשרת ולחלץ את ה-Flags הנותרים.
+
+1. זיהוי וקטור התקיפה (SUID Enumeration)
+חיפשתי קבצים במערכת שמוגדרים עם הרשאת SUID (קבצים שרצים בהרשאות של בעל הקובץ – במקרה זה Root).
+הפקודה שבוצעה:
+
+הממצא: הקובץ /usr/local/bin/nmap זוהה כבעל הרשאת SUID. בגרסאות ישנות של Nmap, ניתן לנצל את "המצב האינטראקטיבי" כדי להריץ פקודות מערכת כ-Root.
+
+2. ניצול ה-SUID ופריצה ל-Root
+השתמשתי בטכניקת GTFOBins כדי לפתוח Shell עם הרשאות מנהל מתוך Nmap.
+
+הפקודות שבוצעו:
+
+כניסה למצב אינטראקטיבי:
+
+קריאה ל-Shell מתוך היישום:
+
+תוצאה: כפי שניתן לראות בצילום המסך, שורת הפקודה השתנתה ל-root@ip-10-112-177-29:/#, מה שמעיד על הצלחת הפריצה.
+
+3. חילוץ ה-Flags הסופיים (Flag Capture)
+עם הרשאות ה-Root, ניגשתי לקרוא את הקבצים המוגנים:
+
+Flag 2 (מתיקיית הבית של robot):
+
+ערך ה-Flag: 822c73956184f694993bede3eb39f959
+
+Flag 3 (מתיקיית ה-Root):
+
+ערך ה-Flag: 04787ddef27c3dee1ee161b21670b4e4
+
+סיכום הפרויקט (Conclusion)
+במכונת ה-Mr. Robot, ביצעתי תהליך שלם של בדיקת חדירה (Penetration Test):
+
+Reconnaissance: סריקת שירותים וזיהוי קבצי מפתח (robots.txt).
+
+Web Exploitation: פיצוח סיסמאות ל-WordPress (Brute Force) והזרקת Reverse Shell.
+
+Privilege Escalation: ניצול הגדרות SUID שגויות בתוכנת Nmap להשגת הרשאות Root.
+
+<img width="1175" height="741" alt="image" src="https://github.com/user-attachments/assets/02b83587-3b14-4546-a9ce-8a5efc8e3385" />
+
+
+המכונה הושלמה ב-100%! 🚀
 
