@@ -230,7 +230,6 @@ http://10.112.177.29/wp-content/themes/twentyfifteen/404.php
 החיבור בוצע בהצלחה וקיבלתי גישת טרמינל (Interactive Shell) כמשתמש המערכת daemon.
 
 
-<img width="1467" height="864" alt="image" src="https://github.com/user-attachments/assets/e5ccfdf6-3cb9-4288-9e11-3b5d25432283" />
 
 
 
