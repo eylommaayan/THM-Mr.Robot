@@ -159,3 +159,61 @@ hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER
 
 
 
+<img width="1647" height="876" alt="image" src="https://github.com/user-attachments/assets/fb6dda89-16a4-473f-a1cd-7eafaed85694" />
+
+
+
+שלב 10: כניסה לממשק הניהול והכנת ה-Reverse Shell
+לאחר פיצוח הסיסמה בהצלחה, התחברתי למערכת הניהול של האתר. הגישה לפאנל הניהול מאפשרת למנהל המערכת לערוך קבצי קוד ישירות מהדפדפן, תכונה אותה ננצל להרצת קוד עוין.
+
+1. אימות גישה ל-Dashboard:
+כפי שניתן לראות בצילום המסך, התחברתי בהצלחה כמשתמש elliot. המערכת מזהה גרסת WordPress ישנה (4.3.1), מה שמעיד על פוטנציאל גבוה לחולשות נוספות.
+
+<img width="749" height="477" alt="image" src="https://github.com/user-attachments/assets/d0cd68fa-a34f-4cb5-873d-d3a126d704e6" />
+
+
+
+2. עריכת תבנית האתר (Theme Editor):
+ניווטתי לתפריט Appearance ולאחר מכן ל-Editor. בחרתי לערוך את תבנית ה-404 Template (404.php) של ערכת הנושא "Twenty Fifteen".
+
+הלוגיקה:
+דף ה-404 הוא קובץ PHP שנטען בכל פעם שמשתמש ניגש לנתיב שלא קיים בשרת. על ידי החלפת הקוד המקורי ב-PHP Reverse Shell, אוכל להפעיל את הקוד שלי פשוט על ידי גלישה לכתובת אקראית באתר.
+
+<img width="1716" height="841" alt="image" src="https://github.com/user-attachments/assets/279379b3-1310-45a0-b335-e171a98fe2cf" />
+
+
+
+
+שלב 11: יצירת ה-Payload באמצעות Reverse Shell Generator
+כדי להבטיח שהקוד יפעל בצורה תקינה ויחזור לכתובת הנכונה, השתמשתי באתר revshells.com. כלי זה מאפשר יצירת סקריפטים מוכנים מראש (Payloads) עבור מגוון רחב של שפות תכנות ומערכות הפעלה.
+
+הגדרות שנבחרו (כפי שמוצג בצילום המסך):
+
+IP & Port: הזנתי את כתובת ה-IP של המכונה התוקפת (ה-tun0 שלי) ואת הפורט שעליו אאזין (1234).
+
+Payload Type: בחרתי ב-PHP PentestMonkey. זהו סקריפט אמין מאוד המשמש לפתיחת Reverse Shell על שרתי אינטרנט המריצים PHP.
+
+Listener: הכלי מציג את פקודת ה-Netcat המדויקת שיש להריץ בטרמינל המקומי: nc -lvnp 1234.
+
+ביצוע:
+העתקתי את הקוד שנוצר בחלון ה-Preview (החל מ-<?php ועד סוף הסקריפט) כדי להדביק אותו בתוך עורך התבניות ב-WordPress.
+
+איך אתה עושה את זה עכשיו?
+כנס לאתר revshells.com.
+
+בשורת ה-IP, שים את ה-IP שלך (מה שקיבלת ב-ifconfig תחת tun0). חשוב: אל תעתיק את ה-IP מהמדריך (192.168.176.12), הוא לא יעבוד אצלך!
+
+בשורת ה-Port, רשום 1234.
+
+בצד שמאל ברשימה, בחר PHP PentestMonkey.
+
+לחץ על כפתור ה-Copy למטה.
+
+חזור ל-WordPress, מחק את כל מה שיש ב-404.php, והדבק את מה שהעתקת.
+
+לחץ על Update File.
+<img width="971" height="864" alt="image" src="https://github.com/user-attachments/assets/21b5ed99-9566-4827-b713-2f434b4d17ef" />
+
+
+
+
