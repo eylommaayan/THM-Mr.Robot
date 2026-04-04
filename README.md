@@ -202,10 +202,7 @@ hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER
 
 
 
-<img width="1477" height="801" alt="image" src="https://github.com/user-attachments/assets/1768d7df-83e4-4856-a19b-0a3b59c39636" />
 
-
-<img width="1152" height="740" alt="image" src="https://github.com/user-attachments/assets/c7d92036-3807-46f6-8cae-76a10829a8d3" />
 
 <img width="1467" height="864" alt="image" src="https://github.com/user-attachments/assets/e5ccfdf6-3cb9-4288-9e11-3b5d25432283" />
 
