@@ -204,6 +204,32 @@ hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER
 
 
 
+
+שלב 12: פתרון בעיות והשגת גישה ראשונית (Initial Access)
+במהלך הניסיונות להריץ את ה-Reverse Shell, נתקלתי במספר מכשולים טכניים שדרשו אבחון וטיפול לפני קבלת הגישה לשרת.
+
+1. האתגרים והפתרונות (Troubleshooting):
+בעיית נתיב הקובץ: בתחילה, הקוד הוזרק לקובץ העיצוב (style.css), שאינו מורץ על ידי השרת. הפתרון היה זיהוי התבנית הפעילה (Twenty Fifteen) והזרקת הקוד לקובץ ה-404.php (Template), שמאפשר הרצת קוד PHP בצד השרת.
+
+שגיאת הגדרת IP (LHOST): הקוד המקורי הכיל את כתובת ה-IP של היעד במקום את כתובת המכונה התוקפת. עדכנתי את ה-Payload לכתובת ה-VPN המדויקת שלי (192.168.203.195).
+
+חסימת פורטים: הפורט הראשוני (1234) לא הגיב, לכן העברתי את ה-Payload ואת המאזין (Listener) לפורט 4444 המקובל יותר.
+
+2. הפריצה וקבלת ה-Shell:
+לאחר תיקון הפרמטרים, הרצתי מאזין באמצעות Netcat וניגשתי בדפדפן לנתיב הישיר של הקובץ:
+http://10.112.177.29/wp-content/themes/twentyfifteen/404.php
+
+<img width="1055" height="547" alt="image" src="https://github.com/user-attachments/assets/6ef0aa95-8ac0-4f60-9b5a-1d52bb421887" />
+
+
+
+<img width="1198" height="231" alt="image" src="https://github.com/user-attachments/assets/ac67327b-2c12-4966-8e67-264ab2a34bb6" />
+
+
+התוצאה:
+החיבור בוצע בהצלחה וקיבלתי גישת טרמינל (Interactive Shell) כמשתמש המערכת daemon.
+
+
 <img width="1467" height="864" alt="image" src="https://github.com/user-attachments/assets/e5ccfdf6-3cb9-4288-9e11-3b5d25432283" />
 
 
