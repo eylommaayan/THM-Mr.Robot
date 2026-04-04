@@ -117,3 +117,43 @@ gobuster dir -u http://10.114.174.154/ -w /usr/share/wordlists/dirbuster/directo
 <img width="1587" height="834" alt="image" src="https://github.com/user-attachments/assets/c11c7cd5-ce27-46e1-811f-e9d78c3325cc" />
 
 
+שלב 6: פריצה למערכת הניהול (Authentication Brute Force)
+לאחר שזיהיתי שהאתר מריץ WordPress והנתיב /wp-login.php נגיש, עברתי לניסיון השגת גישה באמצעות הכלי Hydra. התקיפה התחלקה לשני שלבים:
+
+8.1 זיהוי שם משתמש (Username Enumeration)
+מכיוון ש-WordPress מחזירה הודעות שגיאה שונות עבור שם משתמש שגוי לעומת סיסמה שגויה, ניתן להשתמש בזה כדי למצוא שם משתמש תקף. השתמשתי במילון המילים שנוקה קודם לכן (fs-list) כדי לסרוק שמות משתמש פוטנציאליים.
+
+הפקודה לזיהוי המשתמש:
+
+Bash
+hydra -L fs-list -p test 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=Invalid username" -t 30
+
+ממצא: שם המשתמש שזוהה במערכת הוא elliot.
+
+8.2 פיצוח הסיסמה (Password Brute Force)
+לאחר אימות שם המשתמש, הרצתי מתקפת Brute Force ממוקדת על הסיסמה של המשתמש elliot באמצעות המילון המזוקק.
+
+
+
+<img width="1693" height="225" alt="image" src="https://github.com/user-attachments/assets/44f03dc9-bd43-4f65-900a-093799a995dd" />
+
+הפקודה לפיצוח הסיסמה:
+
+Bash
+hydra -l elliot -P fs-list 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:F=The password you entered" -t 64
+
+תוצאה: הסיסמה נמצאה בהצלחה (היא תופיע בשורה ירוקה בטרמינל).
+
+דגשים חשובים לביצוע אצלך:
+
+זמן: המתקפה השנייה עלולה לקחת זמן (כמה דקות טובות), תלוי במיקום הסיסמה בתוך המילון.
+
+הודעת שגיאה: שים לב שבפקודה השנייה, הפרמטר :F= חייב להתאים בדיוק להודעת השגיאה שהאתר מחזיר כשמזינים סיסמה לא נכונה (למשל: "The password you entered for the username elliot is incorrect").
+
+
+
+
+<img width="1665" height="190" alt="image" src="https://github.com/user-attachments/assets/ca5c9d76-33c8-4cab-8184-f7b627d7016d" />
+
+
+
