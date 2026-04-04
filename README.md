@@ -130,12 +130,14 @@ hydra -L fs-list -p test 10.112.177.29 http-post-form "/wp-login.php:log=^USER^&
 
 ממצא: שם המשתמש שזוהה במערכת הוא elliot.
 
+
+<img width="1693" height="225" alt="image" src="https://github.com/user-attachments/assets/44f03dc9-bd43-4f65-900a-093799a995dd" />
 8.2 פיצוח הסיסמה (Password Brute Force)
 לאחר אימות שם המשתמש, הרצתי מתקפת Brute Force ממוקדת על הסיסמה של המשתמש elliot באמצעות המילון המזוקק.
 
 
 
-<img width="1693" height="225" alt="image" src="https://github.com/user-attachments/assets/44f03dc9-bd43-4f65-900a-093799a995dd" />
+
 
 הפקודה לפיצוח הסיסמה:
 
