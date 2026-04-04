@@ -231,5 +231,23 @@ http://10.112.177.29/wp-content/themes/twentyfifteen/404.php
 
 
 
+שלב 15: שדרוג ה-Shell (Interactive Shell Upgrade)
+לאחר קבלת הגישה הראשונית, ה-Shell שהתקבל היה מוגבל מאוד (Non-Interactive). כדי לאפשר עבודה נוחה יותר, הרצת פקודות מורכבות ושימוש בקיצורי מקלדת, ביצעתי שדרוג ל-TTY Shell באמצעות Python.
+
+הפעולה שבוצעה:
+השתמשתי במודול ה-pty של Python כדי להריץ תהליך Bash חדש בסביבת הטרמינל הקיימת.
+
+הפקודה להרצה:
+
+Bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+התוצאה:
+הטרמינל השתנה מ-$ פשוט לשורה המציגה את שם המשתמש והמכונה (daemon@ip-10-112-177-29:/$). פעולה זו מאפשרת לי כעת לנווט במערכת הקבצים בצורה יעילה הרבה יותר.
+
+
+
+<img width="1089" height="214" alt="image" src="https://github.com/user-attachments/assets/c9896f18-42e7-4b26-8b43-efde7a329992" />
+
+
 
 
